@@ -11,8 +11,27 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: {},
+        username: {
+          label: "Username:",
+          type: "text",
+          placeholder: "your-cool-username",
+        },
+        password: {
+            label: "Password:",
+            type: "password",
+            placeholder: "your-awsome-password",
+        }
       },
+      async authorize(credentials) {
+        //this is where you will retrieve your user data to verify credentials, eg if you were working with a db
+        const user = {id: "42", name: "Rose", password: "password"}
+
+        if (credentials?.username === user.name && credentials?.password === user.password){
+            return user
+        } else {
+            return null
+        }
+        }
     }),
   ],
 };
